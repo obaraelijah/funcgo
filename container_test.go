@@ -1,11 +1,13 @@
 package funcgo_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/obaraelijah/funcgo"
 )
 
+// TestForeach This function will test slices
 func TestForeach(t *testing.T) {
 	a := []int{1, 2, 3, 4, 5}
 
@@ -20,5 +22,18 @@ func TestForeach(t *testing.T) {
 		if a[i] != b[i] {
 			t.Error("elements order mismatch")
 		}
+	}
+}
+
+func TestFilter(t *testing.T) {
+	s := []string{"abc", "def", "fgh"}
+	a := funcgo.Filter(func(t string) bool { return strings.HasPrefix(t, "d") })(s)
+
+	if len(a) != 1 {
+		t.Error("length mismatch")
+	}
+
+	if a[0] != "def" {
+		t.Error("Wrong element in slice")
 	}
 }
