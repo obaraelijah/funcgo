@@ -8,3 +8,4 @@
 
 This library's aim is to take advantage of Go's generics to 
 implement functional interfaces for container like maps or slices.
+Because of this, the required version of go is 1.21.
