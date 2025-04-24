@@ -54,3 +54,19 @@ func TestFilter(t *testing.T) {
 		t.Error("Wrong element in slice")
 	}
 }
+
+func TestAny(t *testing.T) {
+	s := []string{"abc", "def", "fgh"}
+
+	a := funcgo.Any(func(t string) bool { return false })(s)
+
+	if a {
+		t.Error("Any should not be true")
+	}
+
+	a = funcgo.Any(func(t string) bool { return t == "abc" })(s)
+
+	if !a {
+		t.Error("Any should be true")
+	}
+}
