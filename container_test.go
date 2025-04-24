@@ -71,14 +71,14 @@ func TestAny(t *testing.T) {
 	}
 }
 
-func TestEvery(t *testing.T) {
+func TestAll(t *testing.T) {
 	s := []string{"a", "abc", "abcdef"}
 
-	if !funcgo.Every(func(t string) bool { return strings.HasPrefix(t, "a") })(s) {
+	if !funcgo.All(func(t string) bool { return strings.HasPrefix(t, "a") })(s) {
 		t.Error("Elements should start with \"a\"")
 	}
 
-	if funcgo.Every(func(t string) bool { return strings.HasSuffix(t, "f") })(s) {
+	if funcgo.All(func(t string) bool { return strings.HasSuffix(t, "f") })(s) {
 		t.Error("Elements does not end with \"f\"")
 	}
 }
@@ -92,5 +92,17 @@ func TestNone(t *testing.T) {
 
 	if funcgo.None(func(t string) bool { return strings.HasSuffix(t, "f") })(s) {
 		t.Error("There is an element with suffix \"f\"")
+	}
+}
+
+func TestCountMatch(t *testing.T) {
+	s := []string{"a", "abc", "abcdef"}
+
+	if count := funcgo.CountMatch(func(t string) bool { return strings.HasPrefix(t, "a") })(s); count != 3 {
+		t.Error("Element count is incorrect")
+	}
+
+	if count := funcgo.CountMatch(func(t string) bool { return strings.HasSuffix(t, "f") })(s); count != 1 {
+		t.Error("Element count is incorrect")
 	}
 }
